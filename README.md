@@ -1,4 +1,4 @@
-LendingClub Java Client
+LendingClub Java Sdk
 ===========================
 
 1. Register for apiToken follow steps: https://www.lendingclub.com/developers/authentication.action
