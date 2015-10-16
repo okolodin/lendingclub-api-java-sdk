@@ -1,10 +1,12 @@
 package com.lendingclub.model;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
  * Created by tmichels on 12/8/14.
  */
+
 public class Loan {
 
     @JsonProperty("id")
@@ -177,6 +179,15 @@ public class Loan {
     private Integer numOpRevTl;
     @JsonProperty("totCollAmt")
     private Integer totCollAmt;
+    @JsonProperty("applicationType")
+    private String applicationType;
+    @JsonProperty("annualIncJoint")
+    private Number annualIncJoint;
+    @JsonProperty("dtiJoint")
+    private Number dtiJoint;
+    @JsonProperty("isIncVJoint")
+    private String isIncVJoint;
+
 
     public Integer getId() {
         return id;
@@ -856,5 +867,133 @@ public class Loan {
 
     public void setTotCollAmt(Integer totCollAmt) {
         this.totCollAmt = totCollAmt;
+    }
+
+    public String getApplicationType() {
+        return applicationType;
+    }
+
+    public void setApplicationType(String applicationType) {
+        this.applicationType = applicationType;
+    }
+
+
+    public Number getDtiJoint() {
+        return dtiJoint;
+    }
+
+    public void setDtiJoint(Number dtiJoint) {
+        this.dtiJoint = dtiJoint;
+    }
+
+    public String getIsIncVJoint() {
+        return isIncVJoint;
+    }
+
+    public void setIsIncVJoint(String isIncVJoint) {
+        this.isIncVJoint = isIncVJoint;
+    }
+
+    public Number getAnnualIncJoint() {
+        return annualIncJoint;
+    }
+
+    public void setAnnualIncJoint(Number annualIncJoint) {
+        this.annualIncJoint = annualIncJoint;
+    }
+
+    @Override
+    public String toString() {
+        return "Loan{" +
+                "id=" + id +
+                ", memberId=" + memberId +
+                ", loanAmount=" + loanAmount +
+                ", fundedAmount=" + fundedAmount +
+                ", term=" + term +
+                ", intRate=" + intRate +
+                ", expDefaultRate=" + expDefaultRate +
+                ", serviceFeeRate=" + serviceFeeRate +
+                ", installment=" + installment +
+                ", grade='" + grade + '\'' +
+                ", subGrade='" + subGrade + '\'' +
+                ", empLength=" + empLength +
+                ", homeOwnership='" + homeOwnership + '\'' +
+                ", annualInc=" + annualInc +
+                ", isIncV='" + isIncV + '\'' +
+                ", acceptD='" + acceptD + '\'' +
+                ", expD='" + expD + '\'' +
+                ", listD='" + listD + '\'' +
+                ", creditPullD='" + creditPullD + '\'' +
+                ", reviewStatusD='" + reviewStatusD + '\'' +
+                ", reviewStatus='" + reviewStatus + '\'' +
+                ", desc='" + desc + '\'' +
+                ", purpose='" + purpose + '\'' +
+                ", addrZip='" + addrZip + '\'' +
+                ", addrState='" + addrState + '\'' +
+                ", investorCount=" + investorCount +
+                ", ilsExpD='" + ilsExpD + '\'' +
+                ", initialListStatus='" + initialListStatus + '\'' +
+                ", empTitle='" + empTitle + '\'' +
+                ", accNowDelinq=" + accNowDelinq +
+                ", accOpenPast24Mths=" + accOpenPast24Mths +
+                ", bcOpenToBuy=" + bcOpenToBuy +
+                ", percentBcGt75=" + percentBcGt75 +
+                ", bcUtil=" + bcUtil +
+                ", dti=" + dti +
+                ", delinq2Yrs=" + delinq2Yrs +
+                ", delinqAmnt=" + delinqAmnt +
+                ", earliestCrLine='" + earliestCrLine + '\'' +
+                ", ficoRangeLow=" + ficoRangeLow +
+                ", ficoRangeHigh=" + ficoRangeHigh +
+                ", inqLast6Mths=" + inqLast6Mths +
+                ", mthsSinceLastDelinq=" + mthsSinceLastDelinq +
+                ", mthsSinceLastRecord=" + mthsSinceLastRecord +
+                ", mthsSinceRecentInq=" + mthsSinceRecentInq +
+                ", mthsSinceRecentRevolDelinq=" + mthsSinceRecentRevolDelinq +
+                ", mthsSinceRecentBc=" + mthsSinceRecentBc +
+                ", mortAcc=" + mortAcc +
+                ", openAcc=" + openAcc +
+                ", pubRec=" + pubRec +
+                ", totalBalExMort=" + totalBalExMort +
+                ", revolBal=" + revolBal +
+                ", revolUtil=" + revolUtil +
+                ", totalBcLimit=" + totalBcLimit +
+                ", totalAcc=" + totalAcc +
+                ", totalIlHighCreditLimit=" + totalIlHighCreditLimit +
+                ", numRevAccts=" + numRevAccts +
+                ", mthsSinceRecentBcDlq=" + mthsSinceRecentBcDlq +
+                ", pubRecBankruptcies=" + pubRecBankruptcies +
+                ", numAcctsEver120Ppd=" + numAcctsEver120Ppd +
+                ", chargeoffWithin12Mths=" + chargeoffWithin12Mths +
+                ", collections12MthsExMed=" + collections12MthsExMed +
+                ", taxLiens=" + taxLiens +
+                ", mthsSinceLastMajorDerog=" + mthsSinceLastMajorDerog +
+                ", numSats=" + numSats +
+                ", numTlOpPast12m=" + numTlOpPast12m +
+                ", moSinRcntTl=" + moSinRcntTl +
+                ", totHiCredLim=" + totHiCredLim +
+                ", totCurBal=" + totCurBal +
+                ", avgCurBal=" + avgCurBal +
+                ", numBcTl=" + numBcTl +
+                ", numActvBcTl=" + numActvBcTl +
+                ", numBcSats=" + numBcSats +
+                ", pctTlNvrDlq=" + pctTlNvrDlq +
+                ", numTl90gDpd24m=" + numTl90gDpd24m +
+                ", numTl30dpd=" + numTl30dpd +
+                ", numTl120dpd2m=" + numTl120dpd2m +
+                ", numIlTl=" + numIlTl +
+                ", moSinOldIlAcct=" + moSinOldIlAcct +
+                ", numActvRevTl=" + numActvRevTl +
+                ", moSinOldRevTlOp=" + moSinOldRevTlOp +
+                ", moSinRcntRevTlOp=" + moSinRcntRevTlOp +
+                ", totalRevHiLim=" + totalRevHiLim +
+                ", numRevTlBalGt0=" + numRevTlBalGt0 +
+                ", numOpRevTl=" + numOpRevTl +
+                ", totCollAmt=" + totCollAmt +
+                ", applicationType='" + applicationType + '\'' +
+                ", annualIncLjoint=" + annualIncJoint +
+                ", dtiJoint=" + dtiJoint +
+                ", isIncVJoint='" + isIncVJoint + '\'' +
+                '}';
     }
 }

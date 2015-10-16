@@ -24,7 +24,7 @@ public class LendingClubRestIntegrationTest {
 
     @Before
     public void setup(){
-        apiConfig = new ApiConfig();
+        apiConfig = new ApiConfig(apiToken);
         apiConfig.setToken(apiToken);
         apiConfig.setApiEndpoint("https://api.lendingclub.com");
         lendingClubApi = new LendingClubApi(apiConfig);

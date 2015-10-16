@@ -9,6 +9,10 @@ public class ApiConfig {
     String apiEndpoint = "https://api.lendingclub.com";
     String token;
 
+    public ApiConfig(String token) {
+        this.token = token;
+    }
+
     public String getApiEndpoint() {
         return apiEndpoint;
     }

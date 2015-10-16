@@ -6,12 +6,11 @@ LendingClub API Java SDK
 
 Code snippet to get account summary. 
 
-    private static String apiToken = System.getenv("LC_TOKEN");;
-    private static String accountNumber = System.getenv("LC_INVESTOR_ID");
+    private static String apiToken = "YOUR API TOKEN"
+    private static String accountNumber = "YOUR ACCOUNT NUMBER"
 
     public static void main(String args[]){
-         ApiConfig apiConfig = new ApiConfig();
-         apiConfig.setToken(apiToken);
+         ApiConfig apiConfig = new ApiConfig(apiToken);
          LendingClubApi lendingClubApi = new LendingClubApi(apiConfig);
          System.out.println("======= Lending Club API Account Summary =========");
          System.out.println(lendingClubApi.getSummary(accountNumber).toString());
