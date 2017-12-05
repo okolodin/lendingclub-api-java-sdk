@@ -7,19 +7,19 @@ import org.codehaus.jackson.annotate.JsonProperty;
  */
 public class CancelTransfer {
 
-    @JsonProperty("transferIds")
-    private Integer transferIds;
+    @JsonProperty("transferId")
+    private Integer transferId;
     @JsonProperty("status")
     private String status;
     @JsonProperty("message")
     private String message;
 
-    public Integer getTransferIds() {
-        return transferIds;
+    public Integer getTransferId() {
+        return transferId;
     }
 
-    public void setTransferIds(Integer transferId) {
-        this.transferIds = transferId;
+    public void setTransferId(Integer transferId) {
+        this.transferId = transferId;
     }
 
     public String getStatus() {

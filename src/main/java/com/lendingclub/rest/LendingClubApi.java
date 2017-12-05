@@ -110,21 +110,30 @@ public class LendingClubApi {
                 .header("Accept", "application/json"))).as(DetailedNotes.class);
     }
 
-    public PortfolioOwned getPortfoliosOwned(String investorId){
+    public PortfoliosOwned getPortfoliosOwned(String investorId){
         return new ResourceRepresentation(apiRequest(new HttpRequest()
                 .url(uriBase()+"/accounts/"+investorId +"/portfolios")
                 .method("GET")
-                .header("Accept", "application/json"))).as(PortfolioOwned.class);
+                .header("Accept", "application/json"))).as(PortfoliosOwned.class);
     }
 
+
     public Loans getListedLoans(){
+        return getListedLoans(false);
+    }
+
+    /**
+     * @param showAll true to get all listed loans, false for 'Results will contain only the loans listed in the most recent listing period. If the listing is currently in progress, it will return the loans that have been listed so far.'
+     * @return
+     */
+    public Loans getListedLoans(boolean showAll){
         return new ResourceRepresentation(apiRequest(new HttpRequest()
-                .url(uriBase()+"/loans/listing")
+                .url(uriBase() + "/loans/listing" + "?showAll=" + showAll)
                 .method("GET")
                 .header("Accept", "application/json"))).as(Loans.class);
     }
 
-    public PortFolioResponse createPorfolio(String investorId, Object portfolio){
+    public PortFolioResponse createPorfolio(String investorId, Portfolio portfolio){
         try{
             PortFolioResponse result = jsonMapper.readValue(apiRequest(new HttpRequest()
                 .url(uriBase() + "/accounts/" + investorId + "/portfolios")

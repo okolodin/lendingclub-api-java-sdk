@@ -5,16 +5,16 @@ package com.lendingclub.model;
  */
 public class Portfolio {
 
-    private String aid;
+    private String actorId;
     private String portfolioName;
     private String portfolioDescription;
 
-    public String getAid() {
-        return aid;
+    public String getActorId() {
+        return actorId;
     }
 
-    public void setAid(String aid) {
-        this.aid = aid;
+    public void setActorId(String actorId) {
+        this.actorId = actorId;
     }
 
     public String getPortfolioName() {

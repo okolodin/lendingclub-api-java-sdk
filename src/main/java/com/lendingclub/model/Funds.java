@@ -12,6 +12,8 @@ public class Funds {
 
     @JsonProperty("investorId")
     private Integer investorId;
+    @JsonProperty("transferId")
+    private Integer transferId;
     @JsonProperty("amount")
     private BigDecimal amount;
     @JsonProperty("transferFrequency")
@@ -30,6 +32,10 @@ public class Funds {
     public void setInvestorId(Integer investorId) {
         this.investorId = investorId;
     }
+
+    public Integer getTransferId() { return transferId; }
+
+    public void setTransferId(Integer transferId) { this.transferId = transferId;}
 
     public BigDecimal getAmount() {
         return amount;

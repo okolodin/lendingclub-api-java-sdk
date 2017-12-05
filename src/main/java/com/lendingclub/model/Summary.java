@@ -31,6 +31,10 @@ public class Summary {
     private Integer totalNotes;
     @JsonProperty("totalPortfolios")
     private Integer totalPortfolios;
+    @JsonProperty("netAnnualizedReturn")
+    private NetAnnualizedReturn netAnnualizedReturn;
+    @JsonProperty("adjustments")
+    private Adjustments adjustments;
 
     public Integer getInvestorId() {
         return investorId;
@@ -120,8 +124,25 @@ public class Summary {
         this.totalPortfolios = totalPortfolios;
     }
 
+    public NetAnnualizedReturn getNetAnnualizedReturn() {
+        return netAnnualizedReturn;
+    }
+
+    public void setNetAnnualizedReturn(NetAnnualizedReturn netAnnualizedReturn) {
+        this.netAnnualizedReturn = netAnnualizedReturn;
+    }
+
+    public Adjustments getAdjustments() {
+        return adjustments;
+    }
+
+    public void setAdjustments(Adjustments adjustments) {
+        this.adjustments = adjustments;
+    }
+
     @Override
     public String toString(){
         return "investorId: " + investorId;
     }
+
 }

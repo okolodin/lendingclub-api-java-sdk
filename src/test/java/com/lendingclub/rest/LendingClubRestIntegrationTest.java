@@ -81,12 +81,15 @@ public class LendingClubRestIntegrationTest {
     }
 
     @Test
-    public void testGetPortfolioOwned(){
-        PortfolioOwned portfolioOwned = lendingClubApi.getPortfoliosOwned(investorId);
-        if (portfolioOwned.getPortfolioId()!=null){
-            assertNotNull(portfolioOwned.getPortfolioDescription());
-            assertNotNull(portfolioOwned.getPortfolioId());
-            assertNotNull(portfolioOwned.getPortfolioName());
+    public void testGetPortfoliosOwned(){
+        PortfoliosOwned portfoliosOwned = lendingClubApi.getPortfoliosOwned(investorId);
+        if (!portfoliosOwned.getPortfolioOwnedList().isEmpty()) {
+            for (PortfolioOwned portfolioOwned : portfoliosOwned.getPortfolioOwnedList()) {
+                // description may be not set.
+                //assertNotNull(portfolioOwned.getPortfolioDescription());
+                assertNotNull(portfolioOwned.getPortfolioId());
+                assertNotNull(portfolioOwned.getPortfolioName());
+            }
         }
     }
 
@@ -127,7 +130,8 @@ public class LendingClubRestIntegrationTest {
             assertNotNull(loanList.get(0).getLoanAmount());
             assertNotNull(loanList.get(0).getMemberId());
             assertNotNull(loanList.get(0).getMortAcc());
-            assertNotNull(loanList.get(0).getMoSinOldIlAcct());
+            // nullable
+            //assertNotNull(loanList.get(0).getMoSinOldIlAcct());
             assertNotNull(loanList.get(0).getMoSinRcntRevTlOp());
             assertNotNull(loanList.get(0).getMoSinRcntTl());
             assertNotNull(loanList.get(0).getNumAcctsEver120Ppd());
@@ -167,7 +171,7 @@ public class LendingClubRestIntegrationTest {
     @Test
     public void testCreatePortfolio(){
         Portfolio portfolio = new Portfolio();
-        portfolio.setAid(investorId);
+        portfolio.setActorId(investorId);
         portfolio.setPortfolioDescription("Test Portfolio");
         portfolio.setPortfolioName("Test Portfolio");
         PortFolioResponse portfolioResult = lendingClubApi.createPorfolio(investorId, portfolio);

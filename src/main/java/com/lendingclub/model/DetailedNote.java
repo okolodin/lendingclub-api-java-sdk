@@ -87,6 +87,9 @@ public class DetailedNote {
     @JsonProperty("lastPaymentDate")
     private String lastPaymentDate;
 
+    @JsonProperty("applicationType")
+    private String applicationType;
+
     public Integer getLoanId() {
         return loanId;
     }
@@ -294,4 +297,9 @@ public class DetailedNote {
     public void setLastPaymentDate(String lastPaymentDate) {
         this.lastPaymentDate = lastPaymentDate;
     }
+
+    public String getApplicationType() {return applicationType; }
+
+    public void setApplicationType(String applicationType) { this.applicationType = applicationType; }
+
 }

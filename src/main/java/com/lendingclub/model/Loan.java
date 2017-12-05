@@ -89,12 +89,16 @@ public class Loan {
     private Integer ficoRangeLow;
     @JsonProperty("ficoRangeHigh")
     private Integer ficoRangeHigh;
+    @JsonProperty("iLUtil")
+    private Number iLUtil;
     @JsonProperty("inqLast6Mths")
     private Integer inqLast6Mths;
     @JsonProperty("mthsSinceLastDelinq")
     private Integer mthsSinceLastDelinq;
     @JsonProperty("mthsSinceLastRecord")
     private Integer mthsSinceLastRecord;
+    @JsonProperty("mthsSinceRcntIl")
+    private Integer mthsSinceRcntIl;
     @JsonProperty("mthsSinceRecentInq")
     private Integer mthsSinceRecentInq;
     @JsonProperty("mthsSinceRecentRevolDelinq")
@@ -105,6 +109,37 @@ public class Loan {
     private Integer mortAcc;
     @JsonProperty("openAcc")
     private Integer openAcc;
+    /**
+     * Number of open trades in last 6 months
+     */
+    @JsonProperty("openAcc6m")
+    private Integer openAcc6m;
+    /**
+     * Number of currently active installment trades
+     */
+    @JsonProperty("openIl6m")
+    private Integer openIl6m;
+    /**
+     * Number of installment accounts opened in past 12 months
+     */
+    @JsonProperty("openIl12m")
+    private Integer openIl12m;
+    /**
+     * Number of installment accounts opened in past 24 months
+     */
+    @JsonProperty("openIl24m")
+    private Integer openIl24m;
+    /**
+     * Number of revolving trades opened in past 12 months
+     */
+    @JsonProperty("openRv12m")
+    private Integer openRv12m;
+    /**
+     * Number of revolving trades opened in past 24 months
+     */
+    @JsonProperty("openRv24m")
+    private Integer openRv24m;
+
     @JsonProperty("pubRec")
     private Integer pubRec;
     @JsonProperty("totalBalExMort")
@@ -113,6 +148,11 @@ public class Loan {
     private Number revolBal;
     @JsonProperty("revolUtil")
     private Number revolUtil;
+    /**
+     * Total current balance of all installment accounts
+     */
+    @JsonProperty("totalBalIl")
+    private Integer totalBalIl;
     @JsonProperty("totalBcLimit")
     private Integer totalBcLimit;
     @JsonProperty("totalAcc")
@@ -133,6 +173,11 @@ public class Loan {
     private Integer collections12MthsExMed;
     @JsonProperty("taxLiens")
     private Integer taxLiens;
+    /**
+     * Maximum current balance owed on all revolving accounts
+     */
+    @JsonProperty("maxBalBc")
+    private Integer maxBalBc;
     @JsonProperty("mthsSinceLastMajorDerog")
     private Integer mthsSinceLastMajorDerog;
     @JsonProperty("numSats")
@@ -187,6 +232,25 @@ public class Loan {
     private Number dtiJoint;
     @JsonProperty("isIncVJoint")
     private String isIncVJoint;
+
+    /**
+     * Balance to credit limit on all trades
+     */
+    @JsonProperty("allUtil")
+    private Number allUtil;
+    /**
+     * Number of personal finance inquiries
+     */
+    @JsonProperty("inqFi")
+    private Number inqFi;
+    @JsonProperty("totalCuTl")
+    private Integer totalCuTl;
+    /**
+     * Number of credit inquiries in past 12 months
+     */
+    @JsonProperty("inqLast12m")
+    private Integer inqLast12m;
+
 
 
     public Integer getId() {
@@ -509,6 +573,14 @@ public class Loan {
         this.ficoRangeHigh = ficoRangeHigh;
     }
 
+    public Number getILUtil() {
+        return iLUtil;
+    }
+
+    public void setILUtil(Number iLUtil) {
+        this.iLUtil = iLUtil;
+    }
+
     public Integer getInqLast6Mths() {
         return inqLast6Mths;
     }
@@ -531,6 +603,14 @@ public class Loan {
 
     public void setMthsSinceLastRecord(Integer mthsSinceLastRecord) {
         this.mthsSinceLastRecord = mthsSinceLastRecord;
+    }
+
+    public Integer getMthsSinceRcntIl() {
+        return mthsSinceRcntIl;
+    }
+
+    public void setMthsSinceRcntIl(Integer mthsSinceRcntIl) {
+        this.mthsSinceRcntIl = mthsSinceRcntIl;
     }
 
     public Integer getMthsSinceRecentInq() {
@@ -573,6 +653,54 @@ public class Loan {
         this.openAcc = openAcc;
     }
 
+    public Integer getOpenAcc6m() {
+        return openAcc6m;
+    }
+
+    public void setOpenAcc6m(Integer openAcc6m) {
+        this.openAcc6m = openAcc6m;
+    }
+
+    public Integer getOpenIl6m() {
+        return openIl6m;
+    }
+
+    public void setOpenIl6m(Integer openIl6m) {
+        this.openIl6m = openIl6m;
+    }
+
+    public Integer getOpenIl12m() {
+        return openIl12m;
+    }
+
+    public void setOpenIl12m(Integer openIl12m) {
+        this.openIl12m = openIl12m;
+    }
+
+    public Integer getOpenIl24m() {
+        return openIl24m;
+    }
+
+    public void setOpenIl24m(Integer openIl24m) {
+        this.openIl24m = openIl24m;
+    }
+
+    public Integer getOpenRv12m() {
+        return openRv12m;
+    }
+
+    public void setOpenRv12m(Integer openRv12m) {
+        this.openRv12m = openRv12m;
+    }
+
+    public Integer getOpenRv24m() {
+        return openRv24m;
+    }
+
+    public void setOpenRv24m(Integer openRv24m) {
+        this.openRv24m = openRv24m;
+    }
+
     public Integer getPubRec() {
         return pubRec;
     }
@@ -603,6 +731,14 @@ public class Loan {
 
     public void setRevolUtil(Number revolUtil) {
         this.revolUtil = revolUtil;
+    }
+
+    public Integer getTotalBalIl() {
+        return totalBalIl;
+    }
+
+    public void setTotalBalIl(Integer totalBalIl) {
+        this.totalBalIl = totalBalIl;
     }
 
     public Integer getTotalBcLimit() {
@@ -683,6 +819,14 @@ public class Loan {
 
     public void setTaxLiens(Integer taxLiens) {
         this.taxLiens = taxLiens;
+    }
+
+    public Integer getMaxBalBc() {
+        return maxBalBc;
+    }
+
+    public void setMaxBalBc(Integer maxBalBc) {
+        this.maxBalBc = maxBalBc;
     }
 
     public Integer getMthsSinceLastMajorDerog() {
@@ -877,13 +1021,44 @@ public class Loan {
         this.applicationType = applicationType;
     }
 
-
     public Number getDtiJoint() {
         return dtiJoint;
     }
 
     public void setDtiJoint(Number dtiJoint) {
         this.dtiJoint = dtiJoint;
+    }
+
+    public Number getAllUtil() {
+        return allUtil;
+    }
+
+    public void setAllUtil(Number allUtil) {
+        this.allUtil = allUtil;
+    }
+
+    public Number getInqFi() {
+        return inqFi;
+    }
+
+    public void setInqFi(Number inqFi) {
+        this.inqFi = inqFi;
+    }
+
+    public Integer getTotalCuTl() {
+        return totalCuTl;
+    }
+
+    public void setTotalCuTl(Integer totalCuTl) {
+        this.totalCuTl = totalCuTl;
+    }
+
+    public Integer getInqLast12m() {
+        return inqLast12m;
+    }
+
+    public void setInqLast12m(Integer inqLast12m) {
+        this.inqLast12m = inqLast12m;
     }
 
     public String getIsIncVJoint() {
@@ -994,6 +1169,21 @@ public class Loan {
                 ", annualIncLjoint=" + annualIncJoint +
                 ", dtiJoint=" + dtiJoint +
                 ", isIncVJoint='" + isIncVJoint + '\'' +
+                // new fields added to the API on 12/10/2015
+                ", iLUtil='" + iLUtil + '\'' +
+                ", mthsSinceRcntIl='" + mthsSinceRcntIl + '\'' +
+                ", openAcc6m='" + openAcc6m + '\'' +
+                ", openIl6m='" + openIl6m + '\'' +
+                ", openIl12m='" + openIl12m + '\'' +
+                ", openIl24m='" + openIl24m + '\'' +
+                ", openRv12m='" + openRv12m + '\'' +
+                ", openRv24m='" + openRv24m + '\'' +
+                ", totalBalIl='" + totalBalIl + '\'' +
+                ", maxBalBc='" + maxBalBc + '\'' +
+                ", allUtil='" + allUtil + '\'' +
+                ", inqFi='" + inqFi + '\'' +
+                ", totalCuTl='" + totalCuTl + '\'' +
+                ", inqLast12m='" + inqLast12m + '\'' +
                 '}';
     }
 }
