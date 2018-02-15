@@ -115,10 +115,16 @@ public class Loan {
     @JsonProperty("openAcc6m")
     private Integer openAcc6m;
     /**
-     * Number of currently active installment trades
+     * Number of currently active installment trades.
+     * @deprecated replaced by openActIl field
      */
     @JsonProperty("openIl6m")
     private Integer openIl6m;
+    /**
+     * Number of currently active installment trades. This field is a replacement field for openIl6m
+     */
+    @JsonProperty("openActIl")
+    private Integer openActIl;
     /**
      * Number of installment accounts opened in past 12 months
      */
@@ -251,6 +257,42 @@ public class Loan {
     @JsonProperty("inqLast12m")
     private Integer inqLast12m;
 
+    @JsonProperty("mtgPayment")
+    private Number mtgPayment;
+    @JsonProperty("housingPayment")
+    private Number housingPayment;
+    @JsonProperty("revolBalJoint")
+    private Number revolBalJoint;
+    @JsonProperty("secAppFicoRangeLow")
+    private Integer secAppFicoRangeLow;
+    @JsonProperty("secAppFicoRangeHigh")
+    private Integer secAppFicoRangeHigh;
+    @JsonProperty("secAppEarliestCrLine")
+    private String secAppEarliestCrLine;
+    @JsonProperty("secAppInqLast6Mths")
+    private Integer secAppInqLast6Mths;
+
+    @JsonProperty("secAppMortAcc")
+    private Integer secAppMortAcc;
+    @JsonProperty("secAppOpenAcc")
+    private Integer secAppOpenAcc;
+
+    @JsonProperty("secAppRevolUtil")
+    private Number secAppRevolUtil;
+    @JsonProperty("secAppOpenIl6m")
+    private Integer secAppOpenIl6m;
+    @JsonProperty("secAppOpenActIl")
+    private Integer secAppOpenActIl;
+    @JsonProperty("secAppNumRevAccts")
+    private Integer secAppNumRevAccts;
+    @JsonProperty("secAppChargeoffWithin12Mths")
+    private Integer secAppChargeoffWithin12Mths;
+    @JsonProperty("secAppCollections12MthsExMed")
+    private Integer secAppCollections12MthsExMed;
+    @JsonProperty("secAppMthsSinceLastMajorDerog")
+    private Integer secAppMthsSinceLastMajorDerog;
+    @JsonProperty("disbursementMethod")
+    private String disbursementMethod;
 
 
     public Integer getId() {
@@ -669,6 +711,10 @@ public class Loan {
         this.openIl6m = openIl6m;
     }
 
+    public Integer getOpenActIl() { return openActIl; }
+
+    public void setOpenActIl(Integer openActIl) { this.openActIl = openActIl; }
+
     public Integer getOpenIl12m() {
         return openIl12m;
     }
@@ -1077,6 +1123,130 @@ public class Loan {
         this.annualIncJoint = annualIncJoint;
     }
 
+    public Number getMtgPayment() { return mtgPayment; }
+
+    public void setMtgPayment(Number mtgPayment) { this.mtgPayment = mtgPayment; }
+
+    public Number getHousingPayment() { return housingPayment; }
+
+    public void setHousingPayment(Number housingPayment) { this.housingPayment = housingPayment; }
+
+    public Integer getSecAppFicoRangeLow() {
+        return secAppFicoRangeLow;
+    }
+
+    public Number getRevolBalJoint() { return revolBalJoint; }
+
+    public void setRevolBalJoint(Number revolBalJoint) { this.revolBalJoint = revolBalJoint; }
+
+    public void setSecAppFicoRangeLow(Integer secAppFicoRangeLow) {
+        this.secAppFicoRangeLow = secAppFicoRangeLow;
+    }
+
+    public Integer getSecAppFicoRangeHigh() {
+        return secAppFicoRangeHigh;
+    }
+
+    public void setSecAppFicoRangeHigh(Integer secAppFicoRangeHigh) {
+        this.secAppFicoRangeHigh = secAppFicoRangeHigh;
+    }
+
+    public String getSecAppEarliestCrLine() {
+        return secAppEarliestCrLine;
+    }
+
+    public void setSecAppEarliestCrLine(String secAppEarliestCrLine) {
+        this.secAppEarliestCrLine = secAppEarliestCrLine;
+    }
+
+    public Integer getSecAppInqLast6Mths() {
+        return secAppInqLast6Mths;
+    }
+
+    public void setSecAppInqLast6Mths(Integer secAppInqLast6Mths) {
+        this.secAppInqLast6Mths = secAppInqLast6Mths;
+    }
+
+    public Integer getSecAppMortAcc() {
+        return secAppMortAcc;
+    }
+
+    public void setSecAppMortAcc(Integer secAppMortAcc) {
+        this.secAppMortAcc = secAppMortAcc;
+    }
+
+    public Integer getSecAppOpenAcc() {
+        return secAppOpenAcc;
+    }
+
+    public void setSecAppOpenAcc(Integer secAppOpenAcc) {
+        this.secAppOpenAcc = secAppOpenAcc;
+    }
+
+    public Number getSecAppRevolUtil() {
+        return secAppRevolUtil;
+    }
+
+    public void setSecAppRevolUtil(Number secAppRevolUtil) {
+        this.secAppRevolUtil = secAppRevolUtil;
+    }
+
+    public Integer getSecAppOpenIl6m() {
+        return secAppOpenIl6m;
+    }
+
+    public void setSecAppOpenIl6m(Integer secAppOpenIl6m) {
+        this.secAppOpenIl6m = secAppOpenIl6m;
+    }
+
+    public Integer getSecAppOpenActIl() {
+        return secAppOpenActIl;
+    }
+
+    public void setSecAppOpenActIl(Integer secAppOpenActIl) {
+        this.secAppOpenActIl = secAppOpenActIl;
+    }
+
+    public Integer getSecAppNumRevAccts() {
+        return secAppNumRevAccts;
+    }
+
+    public void setSecAppNumRevAccts(Integer secAppNumRevAccts) {
+        this.secAppNumRevAccts = secAppNumRevAccts;
+    }
+
+    public Integer getSecAppChargeoffWithin12Mths() {
+        return secAppChargeoffWithin12Mths;
+    }
+
+    public void setSecAppChargeoffWithin12Mths(Integer secAppChargeoffWithin12Mths) {
+        this.secAppChargeoffWithin12Mths = secAppChargeoffWithin12Mths;
+    }
+
+    public Integer getSecAppCollections12MthsExMed() {
+        return secAppCollections12MthsExMed;
+    }
+
+    public void setSecAppCollections12MthsExMed(Integer secAppCollections12MthsExMed) {
+        this.secAppCollections12MthsExMed = secAppCollections12MthsExMed;
+    }
+
+    public Integer getSecAppMthsSinceLastMajorDerog() {
+        return secAppMthsSinceLastMajorDerog;
+    }
+
+    public void setSecAppMthsSinceLastMajorDerog(Integer secAppMthsSinceLastMajorDerog) {
+        this.secAppMthsSinceLastMajorDerog = secAppMthsSinceLastMajorDerog;
+    }
+
+    public String getDisbursementMethod() {
+        return disbursementMethod;
+    }
+
+    public void setDisbursementMethod(String disbursementMethod) {
+        this.disbursementMethod = disbursementMethod;
+    }
+
     @Override
     public String toString() {
         return "Loan{" +
@@ -1174,6 +1344,7 @@ public class Loan {
                 ", mthsSinceRcntIl='" + mthsSinceRcntIl + '\'' +
                 ", openAcc6m='" + openAcc6m + '\'' +
                 ", openIl6m='" + openIl6m + '\'' +
+                ", openActIl='" + openActIl + '\'' +
                 ", openIl12m='" + openIl12m + '\'' +
                 ", openIl24m='" + openIl24m + '\'' +
                 ", openRv12m='" + openRv12m + '\'' +
@@ -1184,6 +1355,24 @@ public class Loan {
                 ", inqFi='" + inqFi + '\'' +
                 ", totalCuTl='" + totalCuTl + '\'' +
                 ", inqLast12m='" + inqLast12m + '\'' +
+                // new fields added to the API in Feb-2018
+                ", mtgPayment='" + mtgPayment + '\'' +
+                ", housingPayment='" + housingPayment + '\'' +
+                ", revolBalJoint='" + revolBalJoint + '\'' +
+                ", secAppFicoRangeLow='" + secAppFicoRangeLow + '\'' +
+                ", secAppFicoRangeHigh='" + secAppFicoRangeHigh + '\'' +
+                ", secAppEarliestCrLine='" + secAppEarliestCrLine + '\'' +
+                ", secAppInqLast6Mths='" + secAppInqLast6Mths + '\'' +
+                ", secAppMortAcc='" + secAppMortAcc + '\'' +
+                ", secAppOpenAcc='" + secAppOpenAcc + '\'' +
+                ", secAppRevolUtil='" + secAppRevolUtil + '\'' +
+                ", secAppOpenIl6m='" + secAppOpenIl6m + '\'' +
+                ", secAppOpenActIl='" + secAppOpenActIl + '\'' +
+                ", secAppNumRevAccts='" + secAppNumRevAccts + '\'' +
+                ", secAppChargeoffWithin12Mths='" + secAppChargeoffWithin12Mths + '\'' +
+                ", secAppCollections12MthsExMed='" + secAppCollections12MthsExMed + '\'' +
+                ", secAppMthsSinceLastMajorDerog='" + secAppMthsSinceLastMajorDerog + '\'' +
+                ", disbursementMethod='" + disbursementMethod + '\'' +
                 '}';
     }
 }
