@@ -6,7 +6,7 @@ package com.lendingclub.model;
 public enum ExecutionStatus {
 
     ORDER_FULFILLED("ORDER_FULFILLED", "Order Fulfilled"),
-    LOAN_AMNT_EXCEEDED("LOAN_AMNT_EXCEEDED", "Loan Amount Exceeded"),
+    LOAN_AMOUNT_EXCEEDED("LOAN_AMOUNT_EXCEEDED", "Loan Amount Exceeded"),
     NOT_AN_IN_FUNDING_LOAN("NOT_AN_IN_FUNDING_LOAN", "Not An In Funding Loan"),
     REQUESTED_AMNT_LOW("REQUESTED_AMNT_LOW", "Requested Amount Low"),
     REQUESTED_AMNT_ROUNDED("REQUESTED_AMNT_ROUNDED", "Requested Amount Rounded"),
