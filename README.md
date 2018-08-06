@@ -59,3 +59,30 @@ Submit Order
     orders.setAid(new Integer(investorId));
     orders.setOrderList(Arrays.asList(order));
     OrderConfirmations orderResponse = lendingClubApi.submitOrder(investorId, orders);
+
+Folio Notes listed on secondary market platform
+
+    List<Listing> listings = lendingClubApi.getFolioListings(2);
+    
+Folio Orders
+    
+    FolioResponse<FolioOrderResult[]> response = lendingClubApi.getFolioOrders(investorId, true, null, null);
+    
+Submit Orders on Folio platform
+
+    List<FolioOrder> orders = new ArrayList<>();
+    FolioOrder order = new FolioOrder();
+    order.setExpirationDate("2018-09-20T00:00:00.000-07:00");
+    order.setNoteId("123");
+    order.setOrderType(OrderType.SELL);
+    order.setPrice(1.1);
+    orders.add(order);
+
+    order = new FolioOrder();
+    order.setExpirationDate("2018-09-20T00:00:00.000-07:00");
+    order.setNoteId("14661284");
+    order.setOrderType(OrderType.BUY);
+    order.setPrice(27.1);
+    orders.add(order);
+
+    FolioResponse<FolioOrderResult[]> response = lendingClubApi.submitFolioOrder(investorId, orders);    

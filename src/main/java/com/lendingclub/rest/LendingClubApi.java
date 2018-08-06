@@ -4,12 +4,17 @@ import com.lendingclub.http.Http;
 import com.lendingclub.http.HttpRequest;
 import com.lendingclub.http.HttpResponse;
 import com.lendingclub.model.*;
+import com.lendingclub.model.folio.*;
+import com.lendingclub.rest.util.CsvUtils;
+import com.lendingclub.rest.util.JsonMapper;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
 
 /**
  * Created by tmichels on 12/8/14.
@@ -188,9 +193,143 @@ public class LendingClubApi {
             }
         } else if(req.getExpectedCode()!=-1 && res.getResponseCode()!=req.getExpectedCode()) {
             throw new RuntimeException("Unexpected response from LendingClub API. Got response code "+res.getResponseCode()+
-                    ". Was expecing "+req.getExpectedCode());
+                    ". Was expecting "+req.getExpectedCode());
         } else {
             return res;
         }
     }
+
+    //
+    // Secondarymarket/Folio API
+    //
+
+    /**
+     * Treats HTTP response codes 200 and 400 as expected codes.
+     * @param req HTTP Request instance
+     * @return HTTP Response
+     */
+    private final HttpResponse folioApiRequest(HttpRequest req) {
+        req.setAuthorization(config.getToken());
+        HttpResponse res = Http.send(req);
+        int responseCode = res.getResponseCode();
+
+        if (responseCode > 299 && responseCode != 400) {
+            if (res.getResponseCode() == 401) {
+                throw new ApiTokenException(res.getString());
+            } else {
+                throw new ApiException(responseCode, res.getString());
+            }
+        } else if (req.getExpectedCode() != -1 && responseCode != req.getExpectedCode()) {
+            throw new RuntimeException("Unexpected response from LendingClub API. Got response code " + res.getResponseCode() +
+                    ". Was expecting " + req.getExpectedCode());
+        } else {
+            return res;
+        }
+    }
+
+    private final String uriFolioResourceUri() {
+        return uriBase() + "/secondarymarket";
+    }
+
+    /**
+     * 1. Listings.
+     * Returns notes listed on secondary market platform.
+     *
+     * @param updatedSince Filter listings to include only ones that were modified/created within the last updatedSince
+     *                     minutes. Parameter is ignored if set to null.
+     * @return
+     */
+    public List<Listing> getFolioListings(Integer updatedSince){
+        try {
+            String params = (updatedSince != null) ? ("?updatedSince=" + updatedSince) : "";
+            InputStream result = apiRequest(new HttpRequest()
+                    .url(uriFolioResourceUri() + "/listings" + params)
+                    .method("GET")
+                    .header("Accept", "text/csv")
+                    .expectsCode(200)).getStream();
+
+            return CsvUtils.parseFolioListings(result);
+        } catch (JsonGenerationException e) {
+            throw new ResourceException(e);
+        } catch (JsonMappingException e) {
+            throw new ResourceException(e);
+        } catch (IOException e) {
+            throw new ResourceException(e);
+        }
+    }
+
+    /** 2. Orders
+     * Get Folio platform orders
+     * @param investorId
+     * @param includeDetails
+     * @param orderType optional
+     * @param status optional
+     * @return
+     */
+    public FolioResponse<FolioOrderResult[]> getFolioOrders(String investorId, boolean includeDetails,
+                                                            OrderType orderType, List<FolioNoteStatus> status) {
+        try {
+            String query = "?includeDetails=" + includeDetails;
+            if (orderType != null) { query += "&orderType=" + orderType.toString(); };
+            if (status != null) {
+                for (FolioNoteStatus s : status) {
+                    query += "&status=" + s.toString();
+                }
+            }
+            HttpResponse response = folioApiRequest(new HttpRequest()
+                    .url(uriFolioResourceUri() + "/accounts/" + investorId + "/orders" + query)
+                    .method("GET")
+                    .header("Accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    //.expectsCode(200)
+                    );
+            JsonMapper<FolioOrderResult[]> mapper =
+                    new JsonMapper<FolioOrderResult[]>(FolioOrderResult[].class);
+            FolioResponse<FolioOrderResult[]> result = mapper.parseResponse(jsonMapper, response);
+            return result;
+        } catch (JsonGenerationException e) {
+            throw new ResourceException(e);
+        } catch (JsonMappingException e) {
+            throw new ResourceException(e);
+        } catch (IOException e) {
+            throw new ResourceException(e);
+        }
+
+    }
+
+    // TODO 3. GET Order
+
+    /** 4. BUY/SELL Order.
+     *
+     * @param investorId
+     * @param orders
+     * @return
+     */
+    public FolioResponse<FolioOrderResult[]> submitFolioOrder(String investorId, List<FolioOrder> orders) {
+        try {
+            HttpResponse response = folioApiRequest(new HttpRequest()
+                    .url(uriFolioResourceUri() + "/accounts/" + investorId + "/orders")
+                    .method("POST")
+                    .header("Accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    //.expectsCode(200)
+                    .content(jsonMapper.writeValueAsBytes(orders)));
+            JsonMapper<FolioOrderResult[]> mapper =
+                    new JsonMapper<FolioOrderResult[]>(FolioOrderResult[].class);
+            FolioResponse<FolioOrderResult[]> result = mapper.parseResponse(jsonMapper, response);
+            return result;
+        } catch (JsonGenerationException e) {
+            throw new ResourceException(e);
+        } catch (JsonMappingException e) {
+            throw new ResourceException(e);
+        } catch (IOException e) {
+            throw new ResourceException(e);
+        }
+    }
+
+    // TODO 5.	Cancel	Request
+
+    // TODO 6.	Reprice	Request
+
+
 }

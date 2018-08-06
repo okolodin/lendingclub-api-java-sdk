@@ -4,8 +4,8 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.lendingclub</groupId>
-  <artifactId>lendingclub-api-sdk</artifactId>
-  <version>1.1-SNAPSHOT</version>
+  <artifactId>lendingclub-full-api-sdk</artifactId>
+  <version>1.2-SNAPSHOT</version>
 
   <name>LendingClub API Java SDK</name>
   <url>https://github.com/thysmichels/lendingclub-api-java-sdk</url>
@@ -30,6 +30,11 @@
           <groupId>org.apache.httpcomponents</groupId>
           <artifactId>httpclient</artifactId>
           <version>4.3.5</version>
+      </dependency>
+      <dependency>
+          <groupId>org.apache.commons</groupId>
+          <artifactId>commons-csv</artifactId>
+          <version>1.5</version>
       </dependency>
       <dependency>
           <groupId>org.springframework</groupId>
