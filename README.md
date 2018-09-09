@@ -1,6 +1,15 @@
 LendingClub API Java SDK
 ===========================
 
+Maven integration
+
+
+    <dependency>
+      <groupId>com.lendingclub</groupId>
+      <artifactId>lendingclub-full-api-sdk</artifactId>
+      <version>1.2-SNAPSHOT</version>
+    </dependency>
+
 1. Register for apiToken follow steps: https://www.lendingclub.com/developers/authentication.action
 2. Create a new instance of ApiConfig and setToken and you are ready to go:
 
@@ -68,6 +77,11 @@ Folio Orders
     
     FolioResponse<FolioOrderResult[]> response = lendingClubApi.getFolioOrders(investorId, true, null, null);
     
+Folio Order
+    
+    String txnId = "scdc63db3-5277-4a8e-9b28-dea9f7620b54";
+    FolioResponse<FolioOrderResult> response = lendingClubApi.getFolioOrder(investorId, txnId);
+
 Submit Orders on Folio platform
 
     List<FolioOrder> orders = new ArrayList<>();
@@ -85,4 +99,9 @@ Submit Orders on Folio platform
     order.setPrice(27.1);
     orders.add(order);
 
-    FolioResponse<FolioOrderResult[]> response = lendingClubApi.submitFolioOrder(investorId, orders);    
+    FolioResponse<FolioOrderResult[]> response = lendingClubApi.submitFolioOrder(investorId, orders);
+        
+Cancel Folio Sell Order
+
+    String txnId = "scdc63db3-5277-4a8e-9b28-dea9f7620b54";
+    FolioResponse<FolioSellOrderResult[]> response = lendingClubApi.cancelFolioRequest(investorId, txnId);        

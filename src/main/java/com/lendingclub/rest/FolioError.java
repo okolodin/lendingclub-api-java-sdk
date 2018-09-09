@@ -12,6 +12,11 @@ public class FolioError {
     String field;
     @JsonProperty(value = "message")
     String message;
+    /**
+     * recoverability has been spotted in Folio Order Reprice error responses
+     */
+    @JsonProperty(value = "recoverability")
+    String recoverability;
 
     public String getCode() {
         return code;
@@ -37,12 +42,21 @@ public class FolioError {
         this.message = message;
     }
 
+    public String getRecoverability() {
+        return recoverability;
+    }
+
+    public void setRecoverability(String recoverability) {
+        this.recoverability = recoverability;
+    }
+
     @Override
     public String toString() {
         return "FolioError{" +
                 "code='" + code + '\'' +
                 ", field='" + field + '\'' +
                 ", message='" + message + '\'' +
+                ", recoverability='" + recoverability + '\'' +
                 '}';
     }
 }

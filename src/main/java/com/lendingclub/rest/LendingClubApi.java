@@ -259,7 +259,11 @@ public class LendingClubApi {
     }
 
     /** 2. Orders
-     * Get Folio platform orders
+     * Get Folio platform orders.
+     * Known limitations:
+     * <ul>
+     *     <li>Mixing BUY and SELL orders in one request is not allowed.</li>
+     * </ul>
      * @param investorId
      * @param includeDetails
      * @param orderType optional
@@ -297,7 +301,33 @@ public class LendingClubApi {
 
     }
 
-    // TODO 3. GET Order
+    /** 3. GET Order
+     * Get Folio order.
+     * @param investorId Investor ID
+     * @param txnId Transaction ID
+     * @return
+     */
+    public FolioResponse<FolioOrderResult> getFolioOrder(String investorId, String txnId) {
+        try {
+            HttpResponse response = folioApiRequest(new HttpRequest()
+                            .url(uriFolioResourceUri() + "/accounts/" + investorId + "/orders/" + txnId)
+                            .method("GET")
+                            .header("Accept", "application/json")
+                            .header("Content-Type", "application/json")
+                    //.expectsCode(200)
+            );
+            JsonMapper<FolioOrderResult> mapper =
+                    new JsonMapper<FolioOrderResult>(FolioOrderResult.class);
+            FolioResponse<FolioOrderResult> result = mapper.parseResponse(jsonMapper, response);
+            return result;
+        } catch (JsonGenerationException e) {
+            throw new ResourceException(e);
+        } catch (JsonMappingException e) {
+            throw new ResourceException(e);
+        } catch (IOException e) {
+            throw new ResourceException(e);
+        }
+    }
 
     /** 4. BUY/SELL Order.
      *
@@ -327,9 +357,81 @@ public class LendingClubApi {
         }
     }
 
-    // TODO 5.	Cancel	Request
+    /** 5.	Cancel	Request.
+     *
+     * Cancel Folio SELL order.
+     * @param investorId Investor ID
+     * @param txnId Transaction ID, nullable
+     * @return
+     */
+    public FolioResponse<FolioSellOrderResult[]> cancelFolioRequest(String investorId, String txnId) {
+        try {
+            String[] payload = null;
+            if (txnId != null) {
+                payload = new String[1];
+                payload[0] = txnId;
+            } else {
+                payload = new String[0];
+            }
+            HttpResponse response = folioApiRequest(new HttpRequest()
+                    .url(uriFolioResourceUri() + "/accounts/" + investorId + "/orders/cancel")
+                    .method("POST")
+                    .header("Accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    //.expectsCode(200)
+                    .content(jsonMapper.writeValueAsBytes(payload)));
+            JsonMapper<FolioSellOrderResult[]> mapper =
+                    new JsonMapper<FolioSellOrderResult[]>(FolioSellOrderResult[].class);
+            FolioResponse<FolioSellOrderResult[]> result = mapper.parseResponse(jsonMapper, response);
+            return result;
+        } catch (JsonGenerationException e) {
+            throw new ResourceException(e);
+        } catch (JsonMappingException e) {
+            throw new ResourceException(e);
+        } catch (IOException e) {
+            throw new ResourceException(e);
+        }
+    }
 
-    // TODO 6.	Reprice	Request
+    /** 6.Reprice	Request
+     * Reprice Folio SELL order.
+     *
+     * @param investorId
+     * @param txnId Transaction ID
+     * @param price New price
+     * @param expirationDate Order expiration date
+     * @return
+     */
+    public FolioResponse<OrderRepriceResult[]> repriceFolioRequest(String investorId, String txnId, Double price,
+                                                                     String expirationDate) {
+        try {
+            RepriceRequest[] payload = new RepriceRequest[1];
+            RepriceRequest request = new RepriceRequest();
+            request.setTxnId(txnId);
+            request.setPrice(price.toString());
+            request.setExpirationDate(expirationDate);
+            payload[0] = request;
+            HttpResponse response = folioApiRequest(new HttpRequest()
+                    .url(uriFolioResourceUri() + "/accounts/" + investorId + "/orders")
+                    .method("POST")
+                    // workaround for PATCH
+                    .header("X-HTTP-Method-Override", "PATCH")
+                    .header("Accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    //.expectsCode(200)
+                    .content(jsonMapper.writeValueAsBytes(payload)));
+            JsonMapper<OrderRepriceResult[]> mapper =
+                    new JsonMapper<OrderRepriceResult[]>(OrderRepriceResult[].class);
+            FolioResponse<OrderRepriceResult[]> result = mapper.parseResponse(jsonMapper, response);
+            return result;
+        } catch (JsonGenerationException e) {
+            throw new ResourceException(e);
+        } catch (JsonMappingException e) {
+            throw new ResourceException(e);
+        } catch (IOException e) {
+            throw new ResourceException(e);
+        }
+    }
 
 
 }
