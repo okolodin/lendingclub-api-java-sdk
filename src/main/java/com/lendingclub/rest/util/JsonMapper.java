@@ -30,14 +30,24 @@ public class JsonMapper<T> {
             // in case of HTTP 400 folio may return either normal (similar to code 200) json payload or array or errors
             // try to parse response as type T, then as an error
             try {
+                // the most common error could be due to values missing in FolioNoteStatus
+                // check the response and update FolioNoteStatus
                 value = jsonMapper.readValue(response.getString(), type);
             } catch (Exception e) {
                 isError = true;
-                FolioErrors errorsResponse = jsonMapper.readValue(response.getString(), FolioErrors.class);
-                if (errorsResponse != null) {
-                    errors = errorsResponse.getErrors();
+                try {
+                    FolioErrors errorsResponse = jsonMapper.readValue(response.getString(), FolioErrors.class);
+                    if (errorsResponse != null) {
+                        errors = errorsResponse.getErrors();
+                    }
+                } catch (Exception e1) {
+                    String errorText = e1.getMessage() + " " + response.getString();
+                    FolioError error = new FolioError();
+                    error.setMessage(errorText);
+                    errors = new FolioError[] {error};
                 }
-                // if json parsing fails, let the client deal with it.
+                // REST WS returns errors in multiple different formats.
+                // return errors as raw content if error detection fails or yet unknown
             }
         } else {
             value = jsonMapper.readValue(response.getStream(), type);

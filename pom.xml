@@ -8,7 +8,7 @@
   <version>1.2-SNAPSHOT</version>
 
   <name>LendingClub API Java SDK</name>
-  <url>https://github.com/thysmichels/lendingclub-api-java-sdk</url>
+  <url>https://github.com/okolodin/lendingclub-api-java-sdk</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -100,6 +100,20 @@
           <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
+
+      <!-- source:jar -->
+      <!--<plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>-->
 
     </plugins>
   </build>

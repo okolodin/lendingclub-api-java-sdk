@@ -55,10 +55,19 @@ public class FolioResponse<T> {
 
     @Override
     public String toString() {
+        String valueOut = null;
+        if (value != null) {
+            if (value.getClass().isArray()) {
+                valueOut = Arrays.deepToString((Object[])value);
+            } else {
+                valueOut = value.toString();
+            }
+        }
+
         return "FolioResponse{" +
                 "responseCode=" + responseCode +
                 ", responseType=" + responseType +
-                ", value=" + value +
+                ", value=" + valueOut +
                 ", error=" + error +
                 ", errors=" + Arrays.toString(errors) +
                 '}';
