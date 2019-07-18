@@ -24,6 +24,13 @@ public class Http {
 			HttpURLConnection conn = (HttpURLConnection) new URL(req.getUrl()).openConnection();
 			conn.setInstanceFollowRedirects(true);
 			conn.setRequestMethod(req.getMethod());
+			if (req.getConnectTimeout() > 0) {
+				conn.setConnectTimeout(req.getConnectTimeout());
+			}
+			if (req.getReadTimeout() > 0) {
+				conn.setReadTimeout(req.getReadTimeout());
+			}
+
 			for (HttpRequest.Header h : req.getHeaders()) {
 				conn.addRequestProperty(h.getKey(), h.getValue());
 			}

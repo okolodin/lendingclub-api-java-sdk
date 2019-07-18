@@ -1,5 +1,7 @@
 package com.lendingclub.http;
 
+import org.springframework.util.StringUtils;
+
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -8,12 +10,47 @@ import java.util.List;
 
 public class HttpRequest {
 
+	/**
+	 * [Optional] System property name for HTTP connect timeout.
+	 */
+	public static final String LC_API_CONNECT_TIMEOUT = "LC_API_CONNECT_TIMEOUT";
+	/**
+	 * [Optional] System property name for HTTP read timeout.
+	 */
+	public static final String LC_API_READ_TIMEOUT = "LC_API_READ_TIMEOUT";
+
+	public static final int sysPropConnectTimeout;
+	public static final int sysPropReadTimeout;
+	static {
+		String envConnectTimeoutValue = System.getProperty(LC_API_CONNECT_TIMEOUT);
+		if (!StringUtils.isEmpty(envConnectTimeoutValue)) {
+			sysPropConnectTimeout = Integer.parseInt(envConnectTimeoutValue);
+		} else {
+			sysPropConnectTimeout = 0;
+		}
+		String envReadTimeoutValue = System.getProperty(LC_API_READ_TIMEOUT);
+		if (!StringUtils.isEmpty(envReadTimeoutValue)) {
+			sysPropReadTimeout = Integer.parseInt(envReadTimeoutValue);
+		} else {
+			sysPropReadTimeout = 0;
+		}
+	}
+
 	static public HttpRequest formPost() { 
 			return new HttpRequest()
 				.method("POST")
 				.header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
 	}
-	
+
+	/**
+	 * HTTP connect timeout in milliseconds.
+	 */
+	private int connectTimeout = 0;
+	/**
+	 * HTTP read timeout in milliseconds.
+	 */
+	private int readTimeout = 0;
+
 	public enum ResponseFormat { STREAM, BYTE, STRING };
 	
 	ResponseFormat responseFormat = ResponseFormat.STREAM;
@@ -29,8 +66,37 @@ public class HttpRequest {
 	StringBuilder postParams = new StringBuilder();
 
 	private String authorization;
-	
+
+	/**
+	 * Default constructor sets connect/read timeouts if corresponding system properties are set.
+	 * @see HttpRequest#LC_API_CONNECT_TIMEOUT
+	 * @see HttpRequest#LC_API_READ_TIMEOUT
+	 */
 	public HttpRequest() {
+		if (sysPropConnectTimeout > 0) {
+			this.connectTimeout(sysPropConnectTimeout);
+		}
+		if (sysPropReadTimeout > 0) {
+			this.connectTimeout(sysPropReadTimeout);
+		}
+	}
+
+	public int getConnectTimeout() {
+		return connectTimeout;
+	}
+
+	public HttpRequest connectTimeout(int connectTimeout) {
+		this.connectTimeout = connectTimeout;
+		return this;
+	}
+
+	public int getReadTimeout() {
+		return readTimeout;
+	}
+
+	public HttpRequest readTimeout(int readTimeout) {
+		this.readTimeout = readTimeout;
+		return this;
 	}
 
 	public List<Header> getHeaders() {
